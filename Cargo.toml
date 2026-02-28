@@ -1,0 +1,11 @@
+[package]
+name = "nixos-test-keyring"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+keyring = { version = "3.6.3", features = ["linux-native-async-persistent", "crypto-rust"] }
+tokio = { version = "1.49.0", features = ["rt-multi-thread", "macros"] }
+tracing = { version = "0.1" }
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
