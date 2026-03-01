@@ -26,7 +26,7 @@
               ExecStart = ''
                 ${self.packages.${system}.default}/bin/nixos-test-keyring
               '';
-              Environment = [ "RUST_LOG=info" ];
+              Environment = [ "RUST_LOG=debug" ];
             };
           };
         };
@@ -66,6 +66,7 @@
           machine.wait_for_unit("user@1000.service");
           machine.succeed("su -l machine -c 'echo -n \"machine\" | gnome-keyring-daemon --unlock'");
           machine.wait_for_unit("nixos-test-keyring.service", user="machine");
+          machine.sleep(4); # wait for logs to be written
           machine.fail("su -l machine -c 'journalctl --user-unit nixos-test-keyring | grep ERROR'");
         '';
       };
